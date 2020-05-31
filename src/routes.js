@@ -6,6 +6,12 @@ import {
   Category,
 } from './app/controllers';
 
+// Validators
+import {
+  UserValidator,
+  CategoryValidator,
+} from './app/validators';
+
 class Routes {
   constructor() {
     this.routes = Router();
@@ -16,23 +22,23 @@ class Routes {
 
   users() {
     this.routes.route('/users/:id')
-      .get(User.show)
-      .put(User.update);
+      .get(UserValidator.show, User.show)
+      .put(UserValidator.update, User.update);
 
     this.routes.route('/users')
       .get(User.index)
-      .post(User.store);
+      .post(UserValidator.store, User.store);
   }
 
   categories() {
     this.routes.route('/categories/:id')
-      .get(Category.show)
-      .put(Category.update)
-      .delete(Category.delete);
+      .get(CategoryValidator.show, Category.show)
+      .put(CategoryValidator.update, Category.update)
+      .delete(CategoryValidator.delete, Category.delete);
 
     this.routes.route('/categories')
       .get(Category.index)
-      .post(Category.store);
+      .post(CategoryValidator.store, Category.store);
   }
 }
 
