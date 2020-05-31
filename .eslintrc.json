@@ -15,7 +15,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-console": "off",
-        "func-names": "off"
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "func-names": "off",
+        "no-console": "off"
     }
 }
