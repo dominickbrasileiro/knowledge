@@ -3,6 +3,7 @@ import { Router } from 'express';
 // Controllers
 import {
   User,
+  Category,
 } from './app/controllers';
 
 class Routes {
@@ -10,6 +11,7 @@ class Routes {
     this.routes = Router();
 
     this.users();
+    this.categories();
   }
 
   users() {
@@ -20,6 +22,17 @@ class Routes {
     this.routes.route('/users')
       .get(User.index)
       .post(User.store);
+  }
+
+  categories() {
+    this.routes.route('/categories/:id')
+      .get(Category.show)
+      .put(Category.update)
+      .delete(Category.delete);
+
+    this.routes.route('/categories')
+      .get(Category.index)
+      .post(Category.store);
   }
 }
 

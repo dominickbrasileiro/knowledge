@@ -7,7 +7,12 @@ exports.up = function (knex) {
     table.string('image_url', 1000).notNull();
     table.binary('content').notNull();
 
-    table.integer('category_id').references('id').inTable('categories').notNull();
+    table.integer('category_id')
+      .references('id')
+      .inTable('categories')
+      .onDelete('CASCADE')
+      .notNull();
+
     table.integer('user_id').references('id').inTable('users').notNull();
   });
 };

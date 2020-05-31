@@ -4,7 +4,10 @@ exports.up = function (knex) {
 
     table.string('name').notNull();
 
-    table.integer('parent_id').references('id').inTable('categories');
+    table.integer('parent_id')
+      .references('id')
+      .inTable('categories')
+      .onDelete('CASCADE');
   });
 };
 
