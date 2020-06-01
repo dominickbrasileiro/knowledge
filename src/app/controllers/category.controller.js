@@ -27,7 +27,7 @@ class CategoryController {
       return res.status(400).send('Category not found');
     }
 
-    return res.json(getCategoriesWithPath(category));
+    return res.json(category);
   }
 
   async store(req, res) {
