@@ -55,6 +55,12 @@ class CategoryController {
       return res.status(400).send('parent_id cannot be the same as category id');
     }
 
+    if (parent_id) {
+      const parent = await db('categories').where({ id: parent_id }).first();
+
+      if (!parent) return res.status(400).send('Parent not found');
+    }
+
     const rowsUpdated = await db('categories').where({ id }).update({
       name,
       parent_id,
