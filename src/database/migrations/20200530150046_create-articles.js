@@ -4,7 +4,7 @@ exports.up = function (knex) {
 
     table.string('name').notNull();
     table.string('description', 1000).notNull();
-    table.string('image_url', 1000).notNull();
+    table.string('image_url', 1000);
     table.binary('content').notNull();
 
     table.integer('category_id')
