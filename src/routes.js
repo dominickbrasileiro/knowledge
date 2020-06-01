@@ -4,12 +4,14 @@ import { Router } from 'express';
 import {
   User,
   Category,
+  Article,
 } from './app/controllers';
 
 // Validators
 import {
   UserValidator,
   CategoryValidator,
+  ArticleValidator,
 } from './app/validators';
 
 class Routes {
@@ -18,6 +20,7 @@ class Routes {
 
     this.users();
     this.categories();
+    this.articles();
   }
 
   users() {
@@ -39,6 +42,17 @@ class Routes {
     this.routes.route('/categories')
       .get(Category.index)
       .post(CategoryValidator.store, Category.store);
+  }
+
+  articles() {
+    this.routes.route('/articles/:id')
+      .get(ArticleValidator.show, Article.show)
+      .put(ArticleValidator.update, Article.update)
+      .delete(ArticleValidator.delete, Article.delete);
+
+    this.routes.route('/articles')
+      .get(ArticleValidator.index, Article.index)
+      .post(ArticleValidator.store, Article.store);
   }
 }
 
