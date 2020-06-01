@@ -73,13 +73,11 @@ class CategoryController {
   async delete(req, res) {
     const { id } = req.params;
 
-    const category = await db('categories').where({ id }).first();
+    const rowsDeleted = await db('categories').where({ id }).delete();
 
-    if (!category) {
+    if (!rowsDeleted) {
       return res.status(400).send('Category not found');
     }
-
-    await db('categories').where({ id }).delete();
 
     return res.status(204).send();
   }
