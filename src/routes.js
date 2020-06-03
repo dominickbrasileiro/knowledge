@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 // Controllers
 import {
+  Session,
   User,
   Category,
   Article,
@@ -9,6 +10,7 @@ import {
 
 // Validators
 import {
+  SessionValidator,
   UserValidator,
   CategoryValidator,
   ArticleValidator,
@@ -18,9 +20,16 @@ class Routes {
   constructor() {
     this.routes = Router();
 
+    this.sessions();
+
     this.users();
     this.categories();
     this.articles();
+  }
+
+  sessions() {
+    this.routes.route('/sessions')
+      .post(SessionValidator.store, Session.store);
   }
 
   users() {
