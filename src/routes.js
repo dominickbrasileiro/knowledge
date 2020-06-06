@@ -16,15 +16,28 @@ import {
   ArticleValidator,
 } from './app/validators';
 
+// Middlewares
+import {
+  auth,
+} from './app/middlewares';
+
 class Routes {
   constructor() {
     this.routes = Router();
 
+    this.noAuth();
     this.sessions();
+
+    this.routes.use(auth);
 
     this.users();
     this.categories();
     this.articles();
+  }
+
+  noAuth() {
+    this.routes.route('/users')
+      .post(UserValidator.store, User.store);
   }
 
   sessions() {
