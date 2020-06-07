@@ -26,7 +26,13 @@ class UserController {
   }
 
   async store(req, res) {
-    const { name, email, password } = req.body;
+    const {
+      name, email, password, admin = false,
+    } = req.body;
+
+    if (admin && !req.isAdmin) {
+      return res.status(401).send('Unauthorized');
+    }
 
     const userFromDB = await db('users').where({ email }).first();
 
@@ -40,14 +46,26 @@ class UserController {
       name,
       email,
       password: encryptedPassword,
+      admin,
     });
 
     return res.status(204).send();
   }
 
   async update(req, res) {
-    const data = req.body;
+    const {
+      name, email, password, admin = false,
+    } = req.body;
+
     const { id } = req.params;
+
+    if (admin && !req.isAdmin) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    if (id !== req.userId && !req.isAdmin) {
+      return res.status(400).send('Unauthorized');
+    }
 
     const user = await db('users').where({ id }).first();
 
@@ -55,16 +73,17 @@ class UserController {
       return res.status(400).send('User not found');
     }
 
-    if (data.password) {
-      data.password = await encryptPassword(data.password);
-    }
+    let encryptedPassword;
 
-    const { name, email, password } = data;
+    if (password) {
+      encryptedPassword = await encryptPassword(password);
+    }
 
     await db('users').where({ id }).update({
       name,
       email,
-      password,
+      password: encryptedPassword,
+      admin,
     });
 
     return res.status(204).send();

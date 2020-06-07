@@ -12,6 +12,7 @@ export default {
       name: Joi.string().required(),
       email: Joi.string().email({ minDomainSegments: 1 }).required(),
       password: Joi.string().required(),
+      admin: Joi.boolean(),
     }),
   }),
 
@@ -24,6 +25,7 @@ export default {
       name: Joi.string(),
       email: Joi.string(),
       password: Joi.string(),
+      admin: Joi.boolean(),
     }),
   }),
 };

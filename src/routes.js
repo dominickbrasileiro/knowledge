@@ -19,6 +19,7 @@ import {
 // Middlewares
 import {
   auth,
+  admin,
 } from './app/middlewares';
 
 class Routes {
@@ -26,7 +27,6 @@ class Routes {
     this.routes = Router();
 
     this.noAuth();
-    this.sessions();
 
     this.routes.use(auth);
 
@@ -36,13 +36,11 @@ class Routes {
   }
 
   noAuth() {
-    this.routes.route('/users')
-      .post(UserValidator.store, User.store);
-  }
-
-  sessions() {
     this.routes.route('/sessions')
       .post(SessionValidator.store, Session.store);
+
+    this.routes.route('/signup')
+      .post(UserValidator.store, User.store);
   }
 
   users() {
@@ -51,30 +49,30 @@ class Routes {
       .put(UserValidator.update, User.update);
 
     this.routes.route('/users')
-      .get(User.index)
-      .post(UserValidator.store, User.store);
+      .get(admin, User.index)
+      .post(admin, UserValidator.store, User.store);
   }
 
   categories() {
     this.routes.route('/categories/:id')
       .get(CategoryValidator.show, Category.show)
-      .put(CategoryValidator.update, Category.update)
-      .delete(CategoryValidator.delete, Category.delete);
+      .put(admin, CategoryValidator.update, Category.update)
+      .delete(admin, CategoryValidator.delete, Category.delete);
 
     this.routes.route('/categories')
       .get(Category.index)
-      .post(CategoryValidator.store, Category.store);
+      .post(admin, CategoryValidator.store, Category.store);
   }
 
   articles() {
     this.routes.route('/articles/:id')
       .get(ArticleValidator.show, Article.show)
-      .put(ArticleValidator.update, Article.update)
-      .delete(ArticleValidator.delete, Article.delete);
+      .put(admin, ArticleValidator.update, Article.update)
+      .delete(admin, ArticleValidator.delete, Article.delete);
 
     this.routes.route('/articles')
       .get(ArticleValidator.index, Article.index)
-      .post(ArticleValidator.store, Article.store);
+      .post(admin, ArticleValidator.store, Article.store);
   }
 }
 
