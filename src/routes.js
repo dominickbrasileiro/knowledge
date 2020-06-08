@@ -6,6 +6,7 @@ import {
   User,
   Category,
   Article,
+  Stat,
 } from './app/controllers';
 
 // Validators
@@ -33,6 +34,7 @@ class Routes {
     this.users();
     this.categories();
     this.articles();
+    this.stats();
   }
 
   noAuth() {
@@ -73,6 +75,11 @@ class Routes {
     this.routes.route('/articles')
       .get(ArticleValidator.index, Article.index)
       .post(admin, ArticleValidator.store, Article.store);
+  }
+
+  stats() {
+    this.routes.route('/stats')
+      .get(Stat.index);
   }
 }
 
