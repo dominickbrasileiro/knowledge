@@ -64,7 +64,7 @@ class UserController {
     }
 
     if (id !== req.userId && !req.isAdmin) {
-      return res.status(400).send('Unauthorized');
+      return res.status(401).send('Unauthorized');
     }
 
     const user = await db('users').where({ id }).first();
@@ -85,6 +85,28 @@ class UserController {
       password: encryptedPassword,
       admin,
     });
+
+    return res.status(204).send();
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    if (id !== req.userId && !req.isAdmin) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    const articles = await db('articles').where({ user_id: id }).first();
+
+    if (articles) {
+      return res.status(400).send('There are articles associated with this user');
+    }
+
+    const rowsDeleted = await db('users').where({ id }).delete();
+
+    if (!rowsDeleted) {
+      return res.status(400).send('User not found');
+    }
 
     return res.status(204).send();
   }

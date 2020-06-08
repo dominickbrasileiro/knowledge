@@ -48,7 +48,8 @@ class Routes {
   users() {
     this.routes.route('/users/:id')
       .get(UserValidator.show, User.show)
-      .put(UserValidator.update, User.update);
+      .put(UserValidator.update, User.update)
+      .delete(UserValidator.delete, User.delete);
 
     this.routes.route('/users')
       .get(admin, User.index)

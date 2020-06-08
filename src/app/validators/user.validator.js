@@ -28,4 +28,10 @@ export default {
       admin: Joi.boolean(),
     }),
   }),
+
+  delete: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
 };
