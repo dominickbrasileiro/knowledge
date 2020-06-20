@@ -66,6 +66,14 @@
         </b-col>
       </b-row>
 
+      <b-row v-if="user.id">
+        <b-col xs="12">
+          <div class="mb-3">
+            <strong>Usuário selecionado:</strong> {{ user.id }}
+          </div>
+        </b-col>
+      </b-row>
+
       <b-row>
         <b-col xs="12">
           <b-button variant="primary" v-if="mode === 'save'" @click="save">
@@ -143,17 +151,19 @@ export default {
 
     async save() {
       if (this.user.password === this.user.confirmPassword) {
-        delete this.user.confirmPassword;
-
         const method = this.user.id ? 'put' : 'post';
+
+        const newUser = { ...this.user };
+        delete newUser.confirmPassword;
+
         const id = this.user.id ? `/${this.user.id}` : '';
 
         if (id) {
-          delete this.user.id;
+          delete newUser.id;
         }
 
         try {
-          await axios[method](`${apiUrl}/users${id}`, this.user);
+          await axios[method](`${apiUrl}/users${id}`, newUser);
 
           this.$toasted.global.defaultSuccess();
 
