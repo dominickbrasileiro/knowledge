@@ -11,7 +11,7 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 
 // Temp
-require('axios').defaults.headers.common.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRtaW4iOnRydWUsImlhdCI6MTU5MjU0NTk0MywiZXhwIjoxNTkyNTQ3NzQzfQ.Brwrvb1Xjpf6570RFmSl4X_zKhgkuwj52ZYks72ZQac';
+require('axios').defaults.headers.common.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRtaW4iOnRydWUsImlhdCI6MTU5MjYyNjg3NywiZXhwIjoxNTkyNjI4Njc3fQ.Dx_p0JI3iKfd53jYtwRc4RtBwvjhWAEf6wB66TfKli0';
 
 new Vue({
   render: (h) => h(App),
