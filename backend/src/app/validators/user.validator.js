@@ -23,7 +23,7 @@ export default {
 
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string(),
-      email: Joi.string(),
+      email: Joi.string().email({ minDomainSegments: 1 }),
       password: Joi.string(),
       admin: Joi.boolean(),
     }),
